@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  crudapp:
+    image: ${DOCKER_REGISTRY-}crudexample
+    build:
+      context: .
+      dockerfile: CRUDExample/Dockerfile
+  cruddb:
+    image: postgres
+
+volumes:
+  postgres_data:

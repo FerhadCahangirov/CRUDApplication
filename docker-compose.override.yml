@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  cruddb:
+    container_name: cruddb
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin1234 
+      - POSTGRES_DB=CrudDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  crudapp:
+    container_name: crud_app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - "ConnectionStrings:DefaultConnection=Server=cruddb;Port=5432;Database=CrudDb;User Id=admin;Password=admin1234;"
+    ports:
+      - "7898:80"
+    depends_on: 
+      - cruddb
